@@ -1,11 +1,12 @@
-import * as express from 'express'
-const app = express();
-import * as http from 'http'
-const server = http.createServer(app);
+import express from 'express';
 import { Server } from "socket.io";
 import * as bodyParser from 'body-parser'
-app.use(bodyParser.urlencoded())
-app.use(bodyParser.json())
+import * as http from 'http'
+const app = express();
+const server = http.createServer(app);
+
+app.use(express.urlencoded())
+app.use(express.json())
 
 const io = new Server(server, {
     cors: {
