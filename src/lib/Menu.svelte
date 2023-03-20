@@ -3,7 +3,7 @@
 </script>
 
 <h1>Chat app built with Svelte and Socket.io</h1>
-<button>Sign Up</button>
+<a href="/signUp"><button >Sign Up</button></a>
 <br>
 <button>Sign In</button>
 <br>
