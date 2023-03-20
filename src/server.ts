@@ -20,8 +20,8 @@ app.get('/', (req, res) => {
 
 io.on('connection', async(socket) => {
   
-  socket.on('accountData', async(data) => {
-
+  socket.on('signup', async(data) => {
+  console.log(data)
 })
 })
 

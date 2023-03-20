@@ -1,8 +1,14 @@
 <script lang="ts">
+import { io } from "socket.io-client";
+const socket = io("https://3000-nekoify-chatapp-yrjlbpenmgc.ws-us90.gitpod.io/", {
+    reconnection: true,
+})
 function submit() {
     const username = (<HTMLInputElement>document.getElementById('username')).value
     const password = (<HTMLInputElement>document.getElementById('password')).value
     console.log(username, password)
+    alert(socket.connected)
+    socket.emit("signup", {"username": username, "password": password})
 }
 
 </script>
