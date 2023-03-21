@@ -45,8 +45,15 @@ app.get('/', (req, res) => {
 io.on('connection', async(socket) => {
   console.log("user connected")
   socket.on('signup', async(data) => {
-  var hash = sha256(data.password)
-  User.create({username: data.username, passwordHash: hash})
+  User.find({ username: data.username}).then((users) => {
+    if (users.length != 0) {
+     socket.emit("usernameTaken")
+  } else {
+    var hash = sha256(data.password)
+    User.create({username: data.username, passwordHash: hash})
+  }
+    });
+
 })
 })
 
