@@ -31,7 +31,7 @@ const Userschema = new mongoose.Schema({
 
 const User = mongoose.model<IFuser>("User", Userschema);
 
-const usernameCheck =  new RegExp('/^\w{3,20}$/')
+const usernameCheck =  new RegExp(/^\w{3,20}$/)
 
 const io = new Server(server, {
     cors: {
@@ -47,11 +47,13 @@ io.on('connection', async(socket) => {
   console.log("user connected")
   socket.on('signup', async(data) => {
   if (!usernameCheck.test(data.username)) {
-
+    console.log("no")
+    socket.emit("signupError", "Please make sure that your username only contains letters, numbers and underscores and is between 3-20 characters")
+    return
   }
   User.find({ username: data.username}).then((users) => {
     if (users.length != 0) {
-     socket.emit("loginUser", "Username Taken, Please try a different one")
+     socket.emit("signupError", "Username Taken, Please try a different one")
   } else {
     var hash = sha256(data.password)
     User.create({username: data.username, passwordHash: hash})
@@ -61,7 +63,7 @@ io.on('connection', async(socket) => {
 })
 })
 
-server.listen(3000, () => {
+server.listen(3087, () => {
     console.log('[Server] Websocket server connected on port 3000');
 })
 

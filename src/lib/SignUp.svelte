@@ -1,7 +1,7 @@
 <script lang="ts">
 import { io } from "socket.io-client";
 var errorMessage = ""
-const socket = io("https://3000-nekoify-chatapp-yrjlbpenmgc.ws-us90.gitpod.io/", {
+const socket = io("http://localhost:3087", {
     reconnection: true,
     transports: ['websocket']
 })
@@ -13,7 +13,7 @@ function submit() {
 socket.on("connect_error", (err) => {
   console.log(`connect_error due to ${err.message}`);
 });
-socket.on("loginError", (msg) => {
+socket.on("signupError", (msg) => {
   errorMessage = msg
 });
 </script>
