@@ -6,6 +6,7 @@ import * as http from 'http'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { sha256 } from 'js-sha256';
+import CryptoJS from 'crypto-js';
 
 //why is it so hard to load a .env file
 const __filename = fileURLToPath(import.meta.url);
@@ -46,6 +47,10 @@ app.get('/', (req, res) => {
 io.on('connection', async(socket) => {
   console.log("user connected")
   socket.on('signup', async(data) => {
+  if (data.password == "") {
+    socket.emit("signupError", "Please fill in all fields")
+    return
+  }
   if (!usernameCheck.test(data.username)) {
     console.log("no")
     socket.emit("signupError", "Please make sure that your username only contains letters, numbers and underscores and is between 3-20 characters")
@@ -57,6 +62,33 @@ io.on('connection', async(socket) => {
   } else {
     var hash = sha256(data.password)
     User.create({username: data.username, passwordHash: hash})
+    var cookie = CryptoJS.AES.encrypt(data.username, process.env.KEY).toString();
+    socket.emit("signupSuccess", cookie)
+  }
+    });
+
+})
+
+socket.on('signin', async(data) => {
+  if (data.password == "") {
+    socket.emit("signinError", "Please fill in all fields")
+    return
+  }
+  if (!usernameCheck.test(data.username)) {
+    socket.emit("signinError", "Please make sure that your username only contains letters, numbers and underscores and is between 3-20 characters")
+    return
+  }
+  User.find({ username: data.username}).then((users) => {
+    if (users.length == 0) {
+     socket.emit("signinError", "No account found with that username")
+  } else {
+    var hash = sha256(data.password)
+    if (hash != users[0].passwordHash) {
+      socket.emit("signinError", "Incorrect password")
+    } else {
+    var cookie = CryptoJS.AES.encrypt(data.username, process.env.KEY).toString();
+    socket.emit("signinSuccess", cookie)
+    }
   }
     });
 

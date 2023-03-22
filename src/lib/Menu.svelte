@@ -5,10 +5,9 @@
 <h1>Chat app built with Svelte and Socket.io</h1>
 <a href="/signUp"><button >Sign Up</button></a>
 <br>
-<button>Sign In</button>
+<a href="/signIn"><button >Sign In</button></a>
 <br>
-<button>Chat Menu</button>
-
+<a href="/chatMenu"><button >Chat Menu</button></a>
 <style>
     button {
         margin-bottom: 10px !important;

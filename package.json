@@ -21,8 +21,10 @@
         "vite": "^4.2.0"
     },
     "dependencies": {
+        "@types/crypto-js": "^4.1.1",
         "body-parser": "^1.20.2",
         "concurrently": "^7.6.0",
+        "crypto-js": "^4.1.1",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "js-sha256": "^0.9.0",
