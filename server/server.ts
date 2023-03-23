@@ -33,6 +33,7 @@ const Userschema = new mongoose.Schema({
 const User = mongoose.model<IFuser>("User", Userschema);
 
 const usernameCheck =  new RegExp(/^\w{3,20}$/)
+var usersOnline = []
 
 const io = new Server(server, {
     cors: {
@@ -92,6 +93,20 @@ socket.on('signin', async(data) => {
   }
     });
 
+})
+socket.on('userOnline', async(data) => {
+  console.log(data)
+var bytes  = CryptoJS.AES.decrypt(data, process.env.KEY);
+var user = bytes.toString(CryptoJS.enc.Utf8);
+socket.emit("getUserList", usersOnline)
+console.log(user)
+var userInfo = {
+  "username": user,
+  "id": socket.id,
+  "inRoom": false,
+  "inChat": false
+}
+usersOnline.push(userInfo)
 })
 })
 

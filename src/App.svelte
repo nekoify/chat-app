@@ -8,7 +8,7 @@
 </script>
 
 <main>
-    <Router>
+    <Router primary={false}>
         <Route path="/">
             <Menu></Menu>
         </Route>

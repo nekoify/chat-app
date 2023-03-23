@@ -6,3 +6,14 @@ Make sure you create a .env file in the root of the project and add `URL=your_mo
 
 
 Server will probably have to be hosted separately if you are building for prod 
+
+## Feature List
+### Account System
+- [x] Sign up
+- [x] Sign in
+- [x] Account Cookie system
+- [ ] Log out
+### Chat System
+- [ ] Chat menu (In progress)
+- [ ] Rooms
+- [ ] 1 on 1 chats
