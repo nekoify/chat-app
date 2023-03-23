@@ -12,7 +12,7 @@ Server will probably have to be hosted separately if you are building for prod
 - [x] Sign up
 - [x] Sign in
 - [x] Account Cookie system
-- [ ] Log out
+- [x] Log out
 ### Chat System
 - [ ] Chat menu (In progress)
 - [ ] Rooms
