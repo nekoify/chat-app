@@ -108,6 +108,18 @@ var userInfo = {
 }
 usersOnline.push(userInfo)
 })
+socket.on('chatReq', async(data) => {
+  console.log(data)
+})
+socket.on('disconnect', async() => {
+  console.log("user disconnected")
+  for (let i = 0; i < usersOnline.length; i++) {
+    if (usersOnline[i].id == socket.id) {
+      usersOnline.splice(i, 1)
+    }
+    
+  }
+})
 })
 
 server.listen(3087, () => {
