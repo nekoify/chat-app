@@ -2,6 +2,7 @@
     import { io } from "socket.io-client";
     import User from "./User.svelte";
     var usersOnline = "Loading..."
+    var clientId
    const socket = io("https://3087-nekoify-chatapp-yrjlbpenmgc.ws-us92.gitpod.io", {
         reconnection: true,
         transports: ['websocket']
@@ -29,6 +30,11 @@ if (!cookie) {
 }
 socket.emit("userOnline", getCookie("account"))
 
+socket.on("connect", () => {
+  console.log("connected")
+  clientId = socket.id
+})
+
 socket.on("getUserList", (data) => {
     console.log(data)
     usersOnline = data.length
@@ -37,7 +43,8 @@ socket.on("getUserList", (data) => {
       new User({
       target: div,
       props: {
-        userInfo: data[i]
+        userInfo: data[i],
+        clientId: clientId
       }
     });
     }

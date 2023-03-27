@@ -98,8 +98,6 @@ socket.on('userOnline', async(data) => {
   console.log(data)
 var bytes  = CryptoJS.AES.decrypt(data, process.env.KEY);
 var user = bytes.toString(CryptoJS.enc.Utf8);
-socket.emit("getUserList", usersOnline)
-console.log(user)
 var userInfo = {
   "username": user,
   "id": socket.id,
@@ -107,6 +105,7 @@ var userInfo = {
   "inChat": false
 }
 usersOnline.push(userInfo)
+socket.emit("getUserList", usersOnline)
 })
 socket.on('chatReq', async(data) => {
   console.log(data)
