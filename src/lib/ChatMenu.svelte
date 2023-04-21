@@ -3,7 +3,7 @@
     import User from "./User.svelte";
     var usersOnline = "Loading..."
     var clientId
-   const socket = io("https://3087-nekoify-chatapp-yrjlbpenmgc.ws-us92.gitpod.io", {
+   const socket = io("http://localhost:3087", {
         reconnection: true,
         transports: ['websocket']
     })

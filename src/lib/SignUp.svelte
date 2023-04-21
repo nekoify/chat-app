@@ -2,7 +2,7 @@
 import { io } from "socket.io-client";
 var errorMessage = ""
 var successMessage = ""
-const socket = io("https://3087-nekoify-chatapp-yrjlbpenmgc.ws-us92.gitpod.io", {
+const socket = io("http://localhost:3087", {
     reconnection: true,
     transports: ['websocket']
 })
